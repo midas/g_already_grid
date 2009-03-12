@@ -1,58 +1,0 @@
-8
-
-dir
-4
-http://cjharrelson@svn2.assembla.com/svn/gems_lfe/trunk/migratory/website
-http://cjharrelson@svn2.assembla.com/svn/gems_lfe
-
-
-
-2008-10-16T18:56:54.446275Z
-4
-cjharrelson
-
-
-svn:special svn:externals svn:needs-lock
-
-index.txt
-file
-
-
-
-
-2008-10-16T18:36:52.000000Z
-09b5bc165fad1d5d1506c9d95e1bcf17
-2008-10-16T18:56:54.446275Z
-4
-cjharrelson
-
-template.html.erb
-file
-
-
-
-
-2008-10-16T18:36:52.000000Z
-49ade01dc7cbca95759b297754bfdee6
-2008-10-16T18:56:54.446275Z
-4
-cjharrelson
-
-javascripts
-dir
-
-index.html
-file
-
-
-
-
-2008-10-16T18:36:52.000000Z
-bbd16e19886ce529b2f4154e975e2ef4
-2008-10-16T18:56:54.446275Z
-4
-cjharrelson
-
-stylesheets
-dir
-
