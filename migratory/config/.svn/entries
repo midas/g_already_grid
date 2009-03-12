@@ -1,0 +1,40 @@
+8
+
+dir
+4
+http://cjharrelson@svn2.assembla.com/svn/gems_lfe/trunk/migratory/config
+http://cjharrelson@svn2.assembla.com/svn/gems_lfe
+
+
+
+2008-10-16T18:56:54.446275Z
+4
+cjharrelson
+
+
+svn:special svn:externals svn:needs-lock
+
+requirements.rb
+file
+
+
+
+
+2008-10-16T18:36:52.000000Z
+8c7920eebe9d0ea8f6bdfe091377f4a0
+2008-10-16T18:56:54.446275Z
+4
+cjharrelson
+
+hoe.rb
+file
+
+
+
+
+2008-10-16T18:38:32.000000Z
+85af6808c48c9978eeb1ebbe762fbe9d
+2008-10-16T18:56:54.446275Z
+4
+cjharrelson
+

@@ -1,0 +1,52 @@
+8
+
+dir
+4
+http://cjharrelson@svn2.assembla.com/svn/gems_lfe/trunk/migratory/tasks
+http://cjharrelson@svn2.assembla.com/svn/gems_lfe
+
+
+
+2008-10-16T18:56:54.446275Z
+4
+cjharrelson
+
+
+svn:special svn:externals svn:needs-lock
+
+deployment.rake
+file
+6
+
+
+
+2008-10-16T22:48:13.000000Z
+d09ef770775c8eb1f5bae3f17921d94e
+2008-10-17T16:32:25.108232Z
+6
+cjharrelson
+
+website.rake
+file
+
+
+
+
+2008-10-16T18:36:52.000000Z
+f318cdc23498208b37b8517df2c3c7b0
+2008-10-16T18:56:54.446275Z
+4
+cjharrelson
+
+environment.rake
+file
+
+
+
+
+2008-10-16T18:36:52.000000Z
+917a284d2b5e33fb48d3ae2937cccfb9
+2008-10-16T18:56:54.446275Z
+4
+cjharrelson
+

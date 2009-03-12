@@ -1,0 +1,40 @@
+8
+
+dir
+4
+http://cjharrelson@svn2.assembla.com/svn/gems_lfe/trunk/migratory/test
+http://cjharrelson@svn2.assembla.com/svn/gems_lfe
+
+
+
+2008-10-16T18:56:54.446275Z
+4
+cjharrelson
+
+
+svn:special svn:externals svn:needs-lock
+
+test_helper.rb
+file
+
+
+
+
+2008-10-16T18:36:52.000000Z
+f2ee6dc0ebe2717adfcaefd76e84fd1a
+2008-10-16T18:56:54.446275Z
+4
+cjharrelson
+
+test_migratory.rb
+file
+
+
+
+
+2008-10-16T18:36:52.000000Z
+61a184167f18dbfdf0e343f362e60d78
+2008-10-16T18:56:54.446275Z
+4
+cjharrelson
+

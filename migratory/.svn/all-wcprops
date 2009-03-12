@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/gems_lfe/!svn/ver/4/trunk/migratory
+END
+History.txt
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/gems_lfe/!svn/ver/4/trunk/migratory/History.txt
+END
+Rakefile
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/gems_lfe/!svn/ver/4/trunk/migratory/Rakefile
+END
+setup.rb
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/gems_lfe/!svn/ver/4/trunk/migratory/setup.rb
+END
+README.rdoc
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/gems_lfe/!svn/ver/4/trunk/migratory/README.rdoc
+END
+Manifest.txt
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/gems_lfe/!svn/ver/5/trunk/migratory/Manifest.txt
+END
+PostInstall.txt
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/gems_lfe/!svn/ver/4/trunk/migratory/PostInstall.txt
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/gems_lfe/!svn/ver/5/trunk/migratory/README.txt
+END

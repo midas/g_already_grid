@@ -1,0 +1,124 @@
+8
+
+dir
+4
+http://cjharrelson@svn2.assembla.com/svn/gems_lfe/trunk/migratory
+http://cjharrelson@svn2.assembla.com/svn/gems_lfe
+
+
+
+2008-10-16T18:56:54.446275Z
+4
+cjharrelson
+has-props
+
+svn:special svn:externals svn:needs-lock
+
+History.txt
+file
+
+
+
+
+2008-10-16T18:36:52.000000Z
+a09a7b2d1aba0bca3ed76e0dc6c8a802
+2008-10-16T18:56:54.446275Z
+4
+cjharrelson
+
+test
+dir
+
+Rakefile
+file
+
+
+
+
+2008-10-16T18:36:52.000000Z
+120b066d386a523afe7f5613c386710e
+2008-10-16T18:56:54.446275Z
+4
+cjharrelson
+
+README.rdoc
+file
+
+
+
+
+2008-10-16T18:36:52.000000Z
+b802b6c10cfce203b667e910a03fa71e
+2008-10-16T18:56:54.446275Z
+4
+cjharrelson
+
+Manifest.txt
+file
+5
+
+
+
+2008-10-16T19:05:34.000000Z
+077838983fa10626b7a2f4d47fe97da8
+2008-10-16T22:03:45.920696Z
+5
+cjharrelson
+
+tasks
+dir
+
+PostInstall.txt
+file
+
+
+
+
+2008-10-16T18:36:52.000000Z
+1eca89ae3b0a94db1b7d546e65b15ce9
+2008-10-16T18:56:54.446275Z
+4
+cjharrelson
+
+setup.rb
+file
+
+
+
+
+2008-10-16T18:36:52.000000Z
+f3e96d4b9eeb3d0c4d841c7c7ea6259c
+2008-10-16T18:56:54.446275Z
+4
+cjharrelson
+
+website
+dir
+
+script
+dir
+
+config
+dir
+
+lib
+dir
+
+bin
+dir
+
+resources
+dir
+
+README.txt
+file
+5
+
+
+
+2008-10-16T19:05:23.000000Z
+9630ec564574d7142e950fdfb4d71214
+2008-10-16T22:03:45.920696Z
+5
+cjharrelson
+
