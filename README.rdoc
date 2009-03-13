@@ -14,6 +14,8 @@ ActiveRecord collection.
 * Easily generate a rich grid from an ActiveRecord collection
 * Can integrate with mislav-will_paginate to provide paging controls
 * Can generate sorting links in headers
+* Can do a check box column for multi-selecting
+* Automatically renders a check all and adds check all behavior if check box column option
 
 
 == INSTALL:
@@ -22,12 +24,27 @@ ActiveRecord collection.
 
 In Rails environemnt.eb file:
 
-	config.gem 'midas-g_already_grid', :version => '1.0.0', :lib => 'g_already_grid', :source => 'http://gems.github.com'
+  config.gem 'midas-g_already_grid', :version => '1.0.0', :lib => 'g_already_grid', :source => 'http://gems.github.com'
 
 
 == USAGE:
 
-	<%= %>
+Simplest case:
+
+  <%= g_already_grid @items, :id => "items-grid", :cols => [:name, :is_active] %>
+
+Add sorting (by name column only):
+
+  <%= g_already_grid @items, :id => "items-grid", :cols => [:name, :is_active], :sort => [:name] %>
+
+Add scoping for nested models (deeply nested):
+
+  <%= g_already_grid @items, :id => "items-grid", :cols => [:name, :is_active], :sort => [:name], :scoped_by => @account %>
+	
+Add shallow argument to use shallow nesting:
+
+  <%= g_already_grid @items, :id => "items-grid", :cols => [:name, :is_active], :sort => [:name], :scoped_by => @account,
+        :shallow => true %>
 
 
 == REQUIREMENTS:
