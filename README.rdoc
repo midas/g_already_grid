@@ -1,32 +1,46 @@
 = g_already_grid
 
-* FIX (url)
+http://github.com/midas/g_already_grid/tree/master
+
 
 == DESCRIPTION:
 
-FIX (describe your package)
+A Guilded (http://github.com/midas/guilded/tree/master) Rails component that generates a rich grid control from an 
+ActiveRecord collection.
 
-== FEATURES/PROBLEMS:
 
-* FIX (list of features or problems)
+== FEATURES:
 
-== SYNOPSIS:
+* Easily generate a rich grid from an ActiveRecord collection
+* Can integrate with mislav-will_paginate to provide paging controls
+* Can generate sorting links in headers
 
-  FIX (code sample of usage)
-
-== REQUIREMENTS:
-
-* FIX (list of requirements)
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+  sudo gem install midas-g_already_grid
+
+In Rails environemnt.eb file:
+
+	config.gem 'midas-g_already_grid', :version => '1.0.0', :lib => 'g_already_grid', :source => 'http://gems.github.com'
+
+
+== USAGE:
+
+	<%= %>
+
+
+== REQUIREMENTS:
+
+* Rails >= 2.2.0
+* Guilded >= 0.1.0 (http://github.com/midas/guilded/tree/master)
+
 
 == LICENSE:
 
 (The MIT License)
 
-Copyright (c) 2009 FIXME full name
+Copyright (c) 2009 C. Jason Harrelson (midas)
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

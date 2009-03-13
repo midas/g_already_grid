@@ -1,0 +1,64 @@
+<div class="<%= grid_class %>" id="<%= grid_id %>">
+  <table cellspacing="0" cellpadding="0">
+    <thead>
+      <tr>
+        <% if do_checkboxes %>
+          <th class="chkBox"><input type="checkbox" class="<%= check_all_class %>" /></th>
+        <% end %>
+        <% unless no_actions %><th>Actions</th><% end %>
+        <% col_titles.each_with_index do |col, i| %>
+          <th><%= sort_by.include?( cols[i].to_sym ) ? sortable_header( col, cols[i], index_rest_method ) : col %></th>
+        <% end %>
+        <th class="right"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% ar_col.each do |record| %>
+        <tr class="<%= cycle( 'even', 'odd' ) %>">
+				<% shallow ? path_args = [record] : path_args = [scoped_by, record] %>
+        <% if do_checkboxes %>
+          <td class="chkBox"><input type="checkbox" class="<%= checkbox_class %>" name="<%= record.class.to_s.tableize %>[<%= record.id %>]" /></td>
+        <% end %>
+        <% unless no_actions %>
+          <td>
+            <%= link_to 'show', @controller.send( show_rest_method, *path_args ) unless show_rest_method.nil? %>
+            <%= link_to 'edit', @controller.send( edit_rest_method, *path_args ) unless edit_rest_method.nil? %>
+            <%= link_to( 'del', @controller.send( delete_rest_method, *path_args ), 
+                  :method => :delete, :confirm => del_confirmation ) unless delete_rest_method.nil? %>
+          </td>
+        <% end %>
+        <% cols.each do |col|
+            translate_method = "translate_#{col}".to_sym
+            
+            if polymorphic_as && col.to_s.include?( polymorphic_as.to_s )
+              col_name = col.to_s.gsub( /#{polymorphic_as}_/, "" )
+              col_val = record.send( polymorphic_as.to_sym ).send( col_name.to_sym )
+            else
+              col_val = record.send( col.to_sym )
+            end
+            
+            if col_val.is_a?( Time )
+              record_val =  col_val.to_formatted_s( date_format.to_sym )
+            elsif respond_to?( translate_method )
+              record_val = send( translate_method, col_val )
+            #elsif col_val.is_a?( TrueClass ) || col_val.is_a?( NilClass )
+            #  record_val = respond_to?( :translate_boolean ) ? translate_boolean( col_val ) : col_val
+            else
+              record_val = col_val.to_s
+            end %>
+          <td>
+            <%= no_actions ? link_to( record_val, @controller.send( show_rest_method, *path_args ) ) : record_val %>
+          </td>
+        <% end %>
+        <td class="right"></td>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="<%= total_columns.to_s %>">
+          <% if do_paginate %><p><%= will_paginate( ar_col ) %></p><p><%= page_entries_info( ar_col ) %></p><% end %>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

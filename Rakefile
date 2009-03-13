@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + '/lib/g_already_grid'
 # Generate all the Rake tasks
 # Run 'rake -T' to see list of generated tasks (from gem root directory)
 $hoe = Hoe.new('g_already_grid', GAlreadyGrid::VERSION) do |p|
-  p.developer('FIXME full name', 'FIXME email')
+  p.developer('C. Jason Harrelson (midas)', 'jason@lookforwardenterprises.com')
   p.changes              = p.paragraphs_of("History.txt", 0..1).join("\n\n")
   p.post_install_message = 'PostInstall.txt' # TODO remove if post-install message not required
   p.rubyforge_name       = p.name # TODO this is default value
@@ -12,7 +12,9 @@ $hoe = Hoe.new('g_already_grid', GAlreadyGrid::VERSION) do |p|
   #   ['activesupport','>= 2.0.2'],
   # ]
   p.extra_dev_deps = [
-    ['newgem', ">= #{::Newgem::VERSION}"]
+    ['newgem', ">= #{::Newgem::VERSION}"],
+    ['rails', ">= 2.2.0"],
+    ['midas-guilded', ">=0.1.0"]
   ]
   
   p.clean_globs |= %w[**/.DS_Store tmp *.log]
