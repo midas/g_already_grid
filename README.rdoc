@@ -22,7 +22,7 @@ ActiveRecord collection.
 
   sudo gem install midas-g_already_grid
 
-In Rails environemnt.eb file:
+In Rails environemnt.rb file:
 
   config.gem 'midas-g_already_grid', :version => '1.0.0', :lib => 'g_already_grid', :source => 'http://gems.github.com'
 
