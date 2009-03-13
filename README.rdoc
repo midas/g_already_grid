@@ -39,12 +39,13 @@ Add sorting (by name column only):
 
 Add scoping for nested models (deeply nested):
 
-  <%= g_already_grid @items, :id => "items-grid", :cols => [:name, :is_active], :sort => [:name], :scoped_by => @account %>
+  <%= g_already_grid @items, :id => "items-grid", :cols => [:name, :is_active], :sort => [:name], 
+        :scoped_by => @account %>
 	
 Add shallow argument to use shallow nesting:
 
-  <%= g_already_grid @items, :id => "items-grid", :cols => [:name, :is_active], :sort => [:name], :scoped_by => @account,
-        :shallow => true %>
+  <%= g_already_grid @items, :id => "items-grid", :cols => [:name, :is_active], :sort => [:name], 
+        :scoped_by => @account, :shallow => true %>
 
 
 == REQUIREMENTS:
