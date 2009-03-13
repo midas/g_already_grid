@@ -1,3 +1,9 @@
+== 1.0.0 2009-03-13
+
+* Fixed problem with grid when collection passed to it is nil or empty
+* Added :empty_msg option to override the default empty message
+
+
 == 1.0.0 2009-03-12
 
 * Initial release (ported form plugin)

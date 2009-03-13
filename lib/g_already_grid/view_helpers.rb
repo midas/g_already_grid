@@ -17,6 +17,7 @@ module GAlreadyGrid
     # skin:: The name of the skin to use for this Guilded element.  Defaults to default => which is default.css.
     # exclude_css:: A boolean indicating if Guilded should create a stylesheet inlcude tag for 
     #   this element.  Defaults to false.
+    # empty_msg:: a message to display when the ar_col is empty or nil.  Defaults to 'No matching recrods'.
     # actions:: Action links to include in the action column of grid.  A boolean or Array of symbols.  When 
     #   boolean, if true, add show, edit and delete actions.  When boolean, if false, hide actions column.  
     #   When Array of symbols, add only actions present in array.
@@ -29,9 +30,11 @@ module GAlreadyGrid
       options = args.extract_options!
       raise ArgumentError, "'cols' option required" unless options.include?( :cols )
       raise ArgumentError, "'cols' option must be an array of columns" unless options[:cols].is_a? Array
-
+      
       Guilded::Guilder.instance.add( :already_grid, options, [ 'jquery/jquery-already_grid-0.1.min.js' ] )
 
+      return "<span class=\"list-empty-msg\">#{options[:empty_msg] || 'No matching records'}</span>" if ar_col.nil? || ar_col.empty?
+      
       plural_ar_type = ar_col[0].class.to_s.tableize
       singular_ar_type = plural_ar_type.singularize
       polymorphic_as = options[:polymorphic_as]

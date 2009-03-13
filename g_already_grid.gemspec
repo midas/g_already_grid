@@ -2,15 +2,15 @@
 
 Gem::Specification.new do |s|
   s.name = %q{g_already_grid}
-  s.version = "1.0.0"
+  s.version = "1.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["C. Jason Harrelson (midas)"]
-  s.date = %q{2009-03-12}
+  s.date = %q{2009-03-13}
   s.description = %q{A Guilded (http://github.com/midas/guilded/tree/master) Rails component that generates a rich grid control from an  ActiveRecord collection.}
   s.email = ["jason@lookforwardenterprises.com"]
   s.extra_rdoc_files = ["History.txt", "Manifest.txt", "PostInstall.txt", "README.rdoc"]
-  s.files = ["History.txt", "Manifest.txt", "PostInstall.txt", "README.rdoc", "Rakefile", "lib/g_already_grid.rb", "lib/g_already_grid/templates/guilded.already_grid.html.erb", "lib/g_already_grid/view_helpers.rb", "rails_generators/already_grid_assets/already_grid_assets_generator.rb", "rails_generators/already_grid_assets/templates/bg.gif", "rails_generators/already_grid_assets/templates/default.css", "rails_generators/already_grid_assets/templates/guilded.already_grid.js", "rails_generators/already_grid_assets/templates/guilded.already_grid.min.js", "rails_generators/already_grid_assets/templates/jquery-already_grid-0.1.js", "rails_generators/already_grid_assets/templates/jquery-already_grid-0.1.min.js", "script/console", "script/destroy", "script/generate", "spec/g_already_grid_spec.rb", "spec/spec.opts", "spec/spec_helper.rb", "tasks/rspec.rake"]
+  s.files = ["History.txt", "Manifest.txt", "PostInstall.txt", "README.rdoc", "Rakefile", "g_already_grid.gemspec", "lib/g_already_grid.rb", "lib/g_already_grid/templates/guilded.already_grid.html.erb", "lib/g_already_grid/view_helpers.rb", "rails_generators/already_grid_assets/already_grid_assets_generator.rb", "rails_generators/already_grid_assets/templates/default.css", "rails_generators/already_grid_assets/templates/gridHeadBg.gif", "rails_generators/already_grid_assets/templates/gridSort.gif", "rails_generators/already_grid_assets/templates/gridSortAsc.gif", "rails_generators/already_grid_assets/templates/gridSortDesc.gif", "rails_generators/already_grid_assets/templates/guilded.already_grid.js", "rails_generators/already_grid_assets/templates/guilded.already_grid.min.js", "rails_generators/already_grid_assets/templates/jquery-already_grid-0.1.js", "rails_generators/already_grid_assets/templates/jquery-already_grid-0.1.min.js", "script/console", "script/destroy", "script/generate", "spec/g_already_grid_spec.rb", "spec/spec.opts", "spec/spec_helper.rb", "tasks/rspec.rake"]
   s.has_rdoc = true
   s.homepage = %q{http://github.com/midas/g_already_grid/tree/master}
   s.post_install_message = %q{PostInstall.txt}
