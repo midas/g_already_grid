@@ -14,7 +14,7 @@ $hoe = Hoe.new('g_already_grid', GAlreadyGrid::VERSION) do |p|
   p.extra_dev_deps = [
     ['newgem', ">= #{::Newgem::VERSION}"],
     ['rails', ">= 2.2.0"],
-    ['midas-guilded', ">=0.1.0"]
+    ['midas-guilded', ">=0.1.4"]
   ]
   
   p.clean_globs |= %w[**/.DS_Store tmp *.log]

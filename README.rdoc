@@ -24,7 +24,7 @@ ActiveRecord collection.
 
 In Rails environemnt.rb file:
 
-  config.gem 'midas-g_already_grid', :version => '1.0.0', :lib => 'g_already_grid', :source => 'http://gems.github.com'
+  config.gem 'midas-g_already_grid', :version => '1.0.2', :lib => 'g_already_grid', :source => 'http://gems.github.com'
 
 
 == USAGE:
@@ -51,7 +51,7 @@ Add shallow argument to use shallow nesting:
 == REQUIREMENTS:
 
 * Rails >= 2.2.0
-* Guilded >= 0.1.0 (http://github.com/midas/guilded/tree/master)
+* Guilded >= 0.1.4 (http://github.com/midas/guilded/tree/master)
 
 
 == LICENSE:
