@@ -45,7 +45,11 @@ module GAlreadyGrid
       options[:check_all_class] = "checkAll"
       date_format = options[:date_format] || :default
       scoped_by = options.delete( :scoped_by )
-      shallow = options.delete( :shallow ) || false
+      if scoped_by
+        shallow = options.delete( :shallow ) || false
+      else
+        shallow = true
+      end
       
       # Resolve sorting
       if options[:sort]
