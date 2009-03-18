@@ -1,4 +1,4 @@
-/* Guilded Already 1.0.0
+/* Guilded Already Grid 1.0.0
  * Copyright (c) 2009 C. Jason Harrelson (midas)
  * Guilded Flash Growler is licensed under the terms of the MIT License */
 

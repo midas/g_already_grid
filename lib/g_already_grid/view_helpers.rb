@@ -44,6 +44,8 @@ module GAlreadyGrid
       options[:checkbox_class] = "chk"
       options[:check_all_class] = "checkAll"
       date_format = options[:date_format] || :default
+      plural_derived_type = polymorphic_type.nil? ? plural_ar_type : plural_polymorphic_type
+      plural_singular_type = polymorphic_type.nil? ? singular_ar_type : singular_polymorphic_type
       scoped_by = options.delete( :scoped_by )
       if scoped_by
         shallow = options.delete( :shallow ) || false
@@ -78,22 +80,25 @@ module GAlreadyGrid
       pre = controller_name_parts.join( '_' )
       
       unless ar_col.empty?
+        
+        # Figure out the index REST path helper name
         if options.has_key?( :index_path_helper )
           index_rest_method = options[:index_path_helper].to_s
         elsif scoped_by
           if pre.empty?
-            index_rest_method = "#{scoped_by.class.to_s.underscore}_#{plural_ar_type}_path" if ar_col.size > 0
+            index_rest_method = "#{scoped_by.class.to_s.underscore}_#{plural_derived_type}_path" if ar_col.size > 0
           else
-            index_rest_method = "#{pre}_#{scoped_by.class.to_s.underscore}_#{plural_ar_type}_path" if ar_col.size > 0
+            index_rest_method = "#{pre}_#{scoped_by.class.to_s.underscore}_#{plural_derived_type}_path" if ar_col.size > 0
           end
         elsif pre.empty?
-          index_rest_method = "#{plural_ar_type}_path" if ar_col.size > 0
-          index_rest_method.gsub!( /#{plural_ar_type}/, "#{plural_polymorphic_type}") if plural_polymorphic_type
+          index_rest_method = "#{plural_derived_type}_path" if ar_col.size > 0
+          #index_rest_method.gsub!( /#{plural_ar_type}/, "#{plural_polymorphic_type}") if plural_polymorphic_type
         else
-          index_rest_method = "#{pre}_#{plural_ar_type}_path" if ar_col.size > 0
-          index_rest_method.gsub!( /#{plural_ar_type}/, "#{plural_polymorphic_type}") if plural_polymorphic_type
+          index_rest_method = "#{pre}_#{plural_derived_type}_path" if ar_col.size > 0
+          #index_rest_method.gsub!( /#{plural_ar_type}/, "#{plural_polymorphic_type}") if plural_polymorphic_type
         end
         
+        # Figure out the show REST path helper name
         if options.has_key?( :show_path_helper )
           show_rest_method = options[:show_path_helper].to_s
         elsif scoped_by && !shallow
@@ -111,7 +116,7 @@ module GAlreadyGrid
         end
 
         unless no_actions
-          # Build the name of the REST path helper methods   
+          # Figure out the edit REST path helper name
           if options.has_key?( :edit_path_helper )
             edit_rest_method = options[:edit_path_helper].to_s
           elsif scoped_by && !shallow
@@ -126,6 +131,7 @@ module GAlreadyGrid
             edit_rest_method = "edit_#{pre}_#{singular_ar_type}_path" if ar_col.size > 0
           end
 
+          # Figure out the delete REST path helper name
           if options.has_key?( :delete_path_helper )
             delete_rest_method = options[:delete_path_helper].to_s   
           elsif pre.empty?
