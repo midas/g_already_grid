@@ -25,6 +25,9 @@ module GAlreadyGrid
     #   true.  Utilizes will_paginate plugin features.
     # polymorphic_type:: The type of this polymorphic record.  Should be a string representing the class name.
     # polymorphic_as:: The as used for the polymorphic type.  Can be a symbol or string.
+    # namespace::
+    # scoped_by::
+    # shallow::
     #
     def g_already_grid( ar_col, *args )
       options = args.extract_options!
@@ -35,23 +38,16 @@ module GAlreadyGrid
 
       return "<span class=\"list-empty-msg\">#{options[:empty_msg] || 'No matching records'}</span>" if ar_col.nil? || ar_col.empty?
       
-      plural_ar_type = ar_col[0].class.to_s.tableize
-      singular_ar_type = plural_ar_type.singularize
-      polymorphic_as = options[:polymorphic_as]
-      polymorphic_type = options[:polymorphic_type]
-      plural_polymorphic_type = polymorphic_type.to_s.tableize if polymorphic_type
-      singular_polymorphic_type = plural_polymorphic_type.singularize if polymorphic_type
-      options[:checkbox_class] = "chk"
-      options[:check_all_class] = "checkAll"
-      date_format = options[:date_format] || :default
-      plural_derived_type = polymorphic_type.nil? ? plural_ar_type : plural_polymorphic_type
-      plural_singular_type = polymorphic_type.nil? ? singular_ar_type : singular_polymorphic_type
+      options[:grid_class] ||= 'already-grid'
+      options[:checkbox_class] ||= "chk"
+      options[:check_all_class] ||= "checkAll"
+      options[:date_format] ||= :default
+      options[:del_confirmation] ||= 'Are you sure you would like to delete this record?'
+      
+      options[:cols], options[:col_titles] = Guilded::Rails::Helpers.resolve_field_methods_and_titles( options[:cols], ar_col[0] )
+      path_helpers = Guilded::Rails::Helpers.resolve_rest_path_helpers( ar_col, options )
+      
       scoped_by = options.delete( :scoped_by )
-      if scoped_by
-        shallow = options.delete( :shallow ) || false
-      else
-        shallow = true
-      end
       
       # Resolve sorting
       if options[:sort]
@@ -65,88 +61,16 @@ module GAlreadyGrid
       end
       sort_by = Array.new unless sort_by
       
-      # Set up the options booleans we need to decide on output HTML
-      no_actions = !(options[:actions] == true || options[:actions] == 'true')
-      no_actions ||= true
-      
-      if no_actions
-        options[:actions] = [ :show ]
-      elsif !options[:actions].is_a?( Array )
+      if options[:actions].is_a?( TrueClass )
         options[:actions] = [ :show, :edit, :delete ]
+      elsif options[:actions].nil?
+        options[:actions] = []
       end
-      
-      controller_name_parts = @controller.class.to_s.underscore.split( '/' )
-      controller_name_parts.pop
-      pre = controller_name_parts.join( '_' )
-      
-      unless ar_col.empty?
-        
-        # Figure out the index REST path helper name
-        if options.has_key?( :index_path_helper )
-          index_rest_method = options[:index_path_helper].to_s
-        elsif scoped_by
-          if pre.empty?
-            index_rest_method = "#{scoped_by.class.to_s.underscore}_#{plural_derived_type}_path" if ar_col.size > 0
-          else
-            index_rest_method = "#{pre}_#{scoped_by.class.to_s.underscore}_#{plural_derived_type}_path" if ar_col.size > 0
-          end
-        elsif pre.empty?
-          index_rest_method = "#{plural_derived_type}_path" if ar_col.size > 0
-          #index_rest_method.gsub!( /#{plural_ar_type}/, "#{plural_polymorphic_type}") if plural_polymorphic_type
-        else
-          index_rest_method = "#{pre}_#{plural_derived_type}_path" if ar_col.size > 0
-          #index_rest_method.gsub!( /#{plural_ar_type}/, "#{plural_polymorphic_type}") if plural_polymorphic_type
-        end
-        
-        # Figure out the show REST path helper name
-        if options.has_key?( :show_path_helper )
-          show_rest_method = options[:show_path_helper].to_s
-        elsif scoped_by && !shallow
-          if pre.empty?
-            show_rest_method = "#{scoped_by.class.to_s.underscore}_#{singular_ar_type}_path" if ar_col.size > 0
-          else
-            show_rest_method = "#{pre}_#{scoped_by.class.to_s.underscore}_#{singular_ar_type }_path" if ar_col.size > 0
-          end
-        elsif pre.empty?
-          show_rest_method = "#{singular_ar_type}_path" if ar_col.size > 0
-          show_rest_method.gsub!( /#{singular_ar_type}/, "#{singular_polymorphic_type}") if singular_polymorphic_type
-        else
-          show_rest_method = "#{pre}_#{singular_ar_type}_path" if ar_col.size > 0
-          show_rest_method.gsub!( /#{singular_ar_type}/, "#{singular_polymorphic_type}") if singular_polymorphic_type
-        end
 
-        unless no_actions
-          # Figure out the edit REST path helper name
-          if options.has_key?( :edit_path_helper )
-            edit_rest_method = options[:edit_path_helper].to_s
-          elsif scoped_by && !shallow
-            if pre.empty?
-              edit_rest_method = "edit_#{scoped_by.class.to_s.underscore}_#{singular_ar_type}_path" if ar_col.size > 0
-            else
-              edit_rest_method = "edit_#{pre}_#{scoped_by.class.to_s.underscore}_#{singular_ar_type }_path" if ar_col.size > 0
-            end       
-          elsif pre.empty?
-            edit_rest_method = "edit_#{singular_ar_type}_path" if ar_col.size > 0
-          else
-            edit_rest_method = "edit_#{pre}_#{singular_ar_type}_path" if ar_col.size > 0
-          end
-
-          # Figure out the delete REST path helper name
-          if options.has_key?( :delete_path_helper )
-            delete_rest_method = options[:delete_path_helper].to_s   
-          elsif pre.empty?
-            delete_rest_method = "#{singular_ar_type}_path" if ar_col.size > 0
-          else
-            delete_rest_method = "#{pre}_#{singular_ar_type}_path" if ar_col.size > 0
-          end
-        end
-      end
-      
-      cols, col_titles = Guilded::Rails::Helpers.resolve_field_methods_and_titles( options[:cols], ar_col[0] )
-
+      # Resolve pagination
       do_paginate = true
       begin
-        if options[:paginate] == false || options[:paginate] == 'false' #ar_col.total_pages <= 1
+        if options[:paginate] == false || options[:paginate] == 'false'
           do_paginate = false
         end
       rescue => e
@@ -157,39 +81,16 @@ module GAlreadyGrid
         end
       end
 
-      do_checkboxes = true
-      do_checkboxes = false if options[:checkboxes] == false || options[:checkboxes] == 'false'
-      options[:checkboxes] = do_checkboxes unless options[:checkboxes]
+      options[:checkboxes] = true if options[:checkboxes].nil?
       
-      total_columns = cols.size
-      total_columns = total_columns + 1 if do_checkboxes
-      total_columns = total_columns + 1 unless no_actions
+      total_columns = options[:cols].size
+      total_columns = total_columns + 1 if options[:checkboxes]
+      total_columns = total_columns + 1 unless options[:actions].empty?
       options[:total_columns] = total_columns
       
       vars = { 
-        :no_actions => no_actions, :actions => options[:actions], :do_checkboxes => do_checkboxes,
-        :total_columns => total_columns, :del_confirmation => 'Are you sure you would like to delete this record?',
-        :col_titles => col_titles, :cols => cols, :grid_class => 'already-grid', :checkbox_class => options[:checkbox_class],
-        :check_all_class => options[:check_all_class], :grid_id => options[:id], :ar_col => ar_col, :do_paginate => do_paginate,
-        :date_format => date_format, :polymorphic_type => polymorphic_type, :polymorphic_as => polymorphic_as,
-        :sort_by => sort_by, :index_rest_method => index_rest_method, :shallow => shallow, :scoped_by => scoped_by
+        :options => options, :ar_col => ar_col, :do_paginate => do_paginate, :sort_by => sort_by, :path_helpers => path_helpers
       }
-      
-      if ( !options[:actions].nil? && options[:actions].include?( :show ) ) || options[:actions].nil?
-        vars.merge!( :show_rest_method => show_rest_method )
-      else
-        vars.merge!( :show_rest_method => nil )
-      end
-      if ( !options[:actions].nil? && options[:actions].include?( :edit ) ) || options[:actions].nil?
-        vars.merge!( :edit_rest_method => edit_rest_method )
-      else
-        vars.merge!( :edit_rest_method => nil )
-      end
-      if ( !options[:actions].nil? && options[:actions].include?( :delete ) ) || options[:actions].nil?
-        vars.merge!( :delete_rest_method => delete_rest_method )
-      else
-        vars.merge!( :delete_rest_method => nil )
-      end
 
       path = File.dirname(__FILE__)
       full_path = "#{path}/templates/guilded.already_grid.html.erb"
@@ -208,7 +109,7 @@ module GAlreadyGrid
     # path:: (Symbol) The name of the path method to call from routing.
     # options:: see link_to helper.
     #
-    def sortable_header( name, method, path, options={} )
+    def sortable_header( name, method, path, scoping_args, options={} )
 
       is_sorted_link = ( method.to_s == params[:order].to_s )
 
@@ -229,14 +130,17 @@ module GAlreadyGrid
       unsorted_options.merge!( :filter => params[:filter] ) if params[:filter]
       
       path = path.to_sym unless path.is_a?( Symbol )
+      path_args = Array.new + scoping_args
       
       if is_sorted_link
         # Handle the currently sorted by link
-        path = @controller.send( path, sort_options )
+        path_args << sort_options
+        path = @controller.send( path, *path_args )
       else
         # Handle the the other currently unsorted by links (we will always sort in 
         # an ASC direction the first time)
-        path = @controller.send( path, unsorted_options )
+        path_args << unsorted_options
+        path = @controller.send( path, *path_args )
       end
       #end
 
