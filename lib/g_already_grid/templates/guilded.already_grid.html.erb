@@ -46,7 +46,11 @@
             end %>
           <td>
 						<% cell_args = path_helpers[:show_rest_args] + record_array %>
-            <%= options[:actions].empty? ? link_to( record_val, @controller.send( path_helpers[:show_rest_helper], *cell_args ) ) : record_val %>
+						<% if options[:actions].empty? && options[:clickable] == true %>
+							<%= link_to( record_val, @controller.send( path_helpers[:show_rest_helper], *cell_args ) ) %>
+						<% else %>
+							<%= link_to( record_val, "javascript:void(0)" ) %>
+						<% end %>
           </td>
         <% end %>
         <td class="right"></td>

@@ -1,5 +1,0 @@
-
-For more information on g_already_grid, see http://g_already_grid.rubyforge.org
-
-
-

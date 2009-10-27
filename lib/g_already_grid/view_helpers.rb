@@ -17,7 +17,7 @@ module GAlreadyGrid
     # skin:: The name of the skin to use for this Guilded element.  Defaults to default => which is default.css.
     # exclude_css:: A boolean indicating if Guilded should create a stylesheet inlcude tag for 
     #   this element.  Defaults to false.
-    # empty_msg:: a message to display when the ar_col is empty or nil.  Defaults to 'No matching recrods'.
+    # empty_msg:: a message to display when the ar_col is empty or nil.  Defaults to 'No matching records'.
     # actions:: Action links to include in the action column of grid.  A boolean or Array of symbols.  When 
     #   boolean, if true, add show, edit and delete actions.  When boolean, if false, hide actions column.  
     #   When Array of symbols, add only actions present in array.
@@ -28,6 +28,7 @@ module GAlreadyGrid
     # namespace::
     # scoped_by::
     # shallow::
+    # clickable:: Set to false in order to avoid rows linking to show action.
     #
     def g_already_grid( ar_col, *args )
       options = args.extract_options!
@@ -43,6 +44,7 @@ module GAlreadyGrid
       options[:check_all_class] ||= "checkAll"
       options[:date_format] ||= :default
       options[:del_confirmation] ||= 'Are you sure you would like to delete this record?'
+      options[:clickable] = true if options[:clickable].nil?
       
       options[:cols], options[:col_titles] = Guilded::Rails::Helpers.resolve_field_methods_and_titles( options[:cols], ar_col[0] )
       path_helpers = Guilded::Rails::Helpers.resolve_rest_path_helpers( ar_col, options )

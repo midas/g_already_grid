@@ -1,3 +1,8 @@
+1.0.5 2009-10-27
+
+* Added :clickable option to avoid creating link to show from table rows.
+
+
 1.0.4 2009-03-26
 
 * Refactored to utilize the REST path helper resolution available in Guilded 0.1.9
