@@ -56,9 +56,9 @@ Add shallow argument to use shallow nesting:
 id:: The HTML id attribute.
 
 cols:: (required) An array of column names to include in the table.  Each position of
-the array can be a symbol, string, or hash with 1 entry.  The hash entry is the
-database field name as a key and the name to use in the gird as the value.  Each
-key and value in the hash can be a symbol or string.
+  the array can be a symbol, string, or hash with 1 entry.  The hash entry is the
+  database field name as a key and the name to use in the gird as the value.  Each
+  key and value in the hash can be a symbol or string.
 
 
 == REQUIREMENTS:
