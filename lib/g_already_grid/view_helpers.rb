@@ -28,8 +28,8 @@ module GAlreadyGrid
     # namespace:: A string or symbol that is the namespace this collection is under.
     # scoped_by:: The active record object that the objects in the ar_col is scoped by.
     # shallow:: True if this collection is nested shallow, otherwise, false.
-    # clickable:: Set to false in order to avoid rows linking to show action.
-    # adaptable_url:: True in order to make the index url automagically adapt to :get collection methods, otherwise false.
+    # clickable:: Set to false in order to avoid rows linking to show action.  Defaults to true.
+    # adaptable_url:: True in order to make the index url automagically adapt to :get collection routes, otherwise false.
     #
     def g_already_grid( ar_col, *args )
       options = args.extract_options!
@@ -147,6 +147,7 @@ module GAlreadyGrid
         path = @controller.send( path, *path_args )
       end
       
+      # Try to adapt to get collection rest methods
       if already_grid_options[:adaptable_url]
         path_parts = path.split( '?' )
         match = request.path_info.match( /#{path_parts[0]}\/(\w*)/ ) unless path_parts.blank?
