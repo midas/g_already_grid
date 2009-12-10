@@ -7,7 +7,7 @@
         <% end %>
         <% unless options[:actions].empty? %><th>Actions</th><% end %>
         <% options[:col_titles].each_with_index do |col, i| %>
-          <th><%= sort_by.include?( options[:cols][i].to_sym ) ? sortable_header( col, options[:cols][i], path_helpers[:index_rest_helper], path_helpers[:index_rest_args] ) : col %></th>
+          <th><%= sort_by.include?( options[:cols][i].to_sym ) ? sortable_header( col, options[:cols][i], path_helpers[:index_rest_helper], path_helpers[:index_rest_args], options ) : col %></th>
         <% end %>
         <th class="right"></th>
       </tr>

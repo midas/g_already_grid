@@ -51,6 +51,15 @@ Add shallow argument to use shallow nesting:
   <%= g_already_grid @items, :id => "items-grid", :cols => [:name, :is_active], :sort => [:name], 
         :scoped_by => @account, :shallow => true %>
 
+== OPTIONS:
+
+id:: The HTML id attribute.
+
+cols:: (required) An array of column names to include in the table.  Each position of
+the array can be a symbol, string, or hash with 1 entry.  The hash entry is the
+database field name as a key and the name to use in the gird as the value.  Each
+key and value in the hash can be a symbol or string.
+
 
 == REQUIREMENTS:
 

@@ -25,10 +25,11 @@ module GAlreadyGrid
     #   true.  Utilizes will_paginate plugin features.
     # polymorphic_type:: The type of this polymorphic record.  Should be a string representing the class name.
     # polymorphic_as:: The as used for the polymorphic type.  Can be a symbol or string.
-    # namespace::
-    # scoped_by::
-    # shallow::
+    # namespace:: A string or symbol that is the namespace this collection is under.
+    # scoped_by:: The active record object that the objects in the ar_col is scoped by.
+    # shallow:: True if this collection is nested shallow, otherwise, false.
     # clickable:: Set to false in order to avoid rows linking to show action.
+    # adaptable_url:: True in order to make the index url automagically adapt to :get collection methods, otherwise false.
     #
     def g_already_grid( ar_col, *args )
       options = args.extract_options!
@@ -79,7 +80,7 @@ module GAlreadyGrid
         if e.is_a? NoMethodError # This just means no will_paginate methods are present.
           do_paginate = false
         else
-          throw e
+          raise e
         end
       end
 
@@ -94,6 +95,7 @@ module GAlreadyGrid
         :options => options, :ar_col => ar_col, :do_paginate => do_paginate, :sort_by => sort_by, :path_helpers => path_helpers
       }
 
+      @g_already_grid_options = options
       path = File.dirname(__FILE__)
       full_path = "#{path}/templates/guilded.already_grid.html.erb"
       self.render( :file => full_path, :use_full_path => false, :locals => vars )
@@ -109,10 +111,10 @@ module GAlreadyGrid
     # name:: The text to use for the link
     # method:: The actual name of this column's field.
     # path:: (Symbol) The name of the path method to call from routing.
+    # already_grid_options:: The options hash from the already grid view helper.
     # options:: see link_to helper.
     #
-    def sortable_header( name, method, path, scoping_args, options={} )
-
+    def sortable_header( name, method, path, scoping_args, already_grid_options, options={} )
       is_sorted_link = ( method.to_s == params[:order].to_s )
 
       if is_sorted_link
@@ -132,7 +134,7 @@ module GAlreadyGrid
       unsorted_options.merge!( :filter => params[:filter] ) if params[:filter]
       
       path = path.to_sym unless path.is_a?( Symbol )
-      path_args = Array.new + scoping_args
+      path_args = [] + scoping_args
       
       if is_sorted_link
         # Handle the currently sorted by link
@@ -144,14 +146,21 @@ module GAlreadyGrid
         path_args << unsorted_options
         path = @controller.send( path, *path_args )
       end
-      #end
-
+      
+      if already_grid_options[:adaptable_url]
+        path_parts = path.split( '?' )
+        match = request.path_info.match( /#{path_parts[0]}\/(\w*)/ ) unless path_parts.blank?
+        left_overs = match[1] unless match.nil?
+        if left_overs == params[:action]
+          path = "#{request.path_info}?#{path_parts[1]}"  # path.gsub( /#path_parts[0]/, request.request_uri )
+        end
+      end
+      
       # Load the params to an args array to send to the link_to helper
-      args = Array.new
+      args = []
       args << name << path << options
 
       link_to( *args )
-
     end
     
   end
