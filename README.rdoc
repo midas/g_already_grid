@@ -79,6 +79,7 @@ adaptable_url:: True in order to make the index url automagically adapt to :get 
 
 * Rails >= 2.2.0
 * Guilded >= 0.1.4 (http://github.com/midas/guilded/tree/master)
+* will_paginate
 
 
 == LICENSE:

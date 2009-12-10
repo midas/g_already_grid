@@ -10,6 +10,9 @@ begin
     gem.email = "jason@lookforwardenterprises.com"
     gem.homepage = "http://github.com/midas/g_already_grid"
     gem.authors = ["C. Jason Harrelson (midas)"]
+    gem.add_dependency "rails", ">= 2.3"
+    gem.add_dependency "guilded", ">= 1.0"
+    gem.add_dependency "will_paginate"
     gem.add_development_dependency "shoulda", ">= 2.10.2"
   end
   Jeweler::GemcutterTasks.new
