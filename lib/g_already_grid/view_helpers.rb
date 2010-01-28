@@ -5,33 +5,33 @@ module GAlreadyGrid
     # a progressively enhanced table.
     # 
     # *parameters*
-    # ar_col:: (required) An ActiveRecord collection.
-    # options:: As follows.
+    # +ar_col+ (required) An ActiveRecord collection.
+    # +options+ As follows.
     # 
     # *options*
-    # id:: (required) The id of the element.  Must be unique on the page.
-    # cols:: (required) An array of column names to include in the table.  Each position of
+    # +id+ (required) The id of the element.  Must be unique on the page.
+    # +cols+ (required) An array of column names to include in the table.  Each position of
     #   the array can be a symbol, string, or hash with 1 entry.  The hash entry is the
     #   database field name as a key and the name to use in the gird as the value.  Each
     #   key and value in the hash can be a symbol or string.
-    # skin:: The name of the skin to use for this Guilded element.  Defaults to default => which is default.css.
-    # exclude_css:: A boolean indicating if Guilded should create a stylesheet inlcude tag for 
+    # +skin+ The name of the skin to use for this Guilded element.  Defaults to default => which is default.css.
+    # +exclude_css+ A boolean indicating if Guilded should create a stylesheet inlcude tag for 
     #   this element.  Defaults to false.
-    # empty_msg:: a message to display when the ar_col is empty or nil.  Defaults to 'No matching records'.
-    # actions:: Action links to include in the action column of grid.  A boolean or Array of symbols.  When 
+    # +empty_msg+ a message to display when the ar_col is empty or nil.  Defaults to 'No matching records'.
+    # +actions+ Action links to include in the action column of grid.  A boolean or Array of symbols.  When 
     #   boolean, if true, add show, edit and delete actions.  When boolean, if false, hide actions column.  
     #   When Array of symbols, add only actions present in array.
-    # paginate:: A boolean indicating whether to output pagination controls.  Defaults to 
+    # +paginate+ A boolean indicating whether to output pagination controls.  Defaults to 
     #   true.  Utilizes will_paginate plugin features.
-    # polymorphic_type:: The type of this polymorphic record.  Should be a string representing the class name.
-    # polymorphic_as:: The as used for the polymorphic type.  Can be a symbol or string.
+    # +polymorphic_type+ The type of this polymorphic record.  Should be a string representing the class name.
+    # +polymorphic_as+ The as used for the polymorphic type.  Can be a symbol or string.
     # +use_polymorphic_path+ When true, uses hte polymorphic path helper to determine the AR objects path from it's type (STI),
     #   otherwise, does not.  Defaults to false.
-    # namespace:: A string or symbol that is the namespace this collection is under.
-    # scoped_by:: The active record object that the objects in the ar_col is scoped by.
-    # shallow:: True if this collection is nested shallow, otherwise, false.
-    # clickable:: Set to false in order to avoid rows linking to show action.  Defaults to true.
-    # adaptable_url:: True in order to make the index url automagically adapt to :get collection routes, otherwise false.
+    # +namespace+ A string or symbol that is the namespace this collection is under.
+    # +scoped_by+ The active record object that the objects in the ar_col is scoped by.
+    # +shallow+ True if this collection is nested shallow, otherwise, false.
+    # +clickable+ Set to false in order to avoid rows linking to show action.  Defaults to true.
+    # +adaptable_url+ True in order to make the index url automagically adapt to :get collection routes, otherwise false.
     #
     def g_already_grid( ar_col, *args )
       options = args.extract_options!
@@ -110,11 +110,11 @@ module GAlreadyGrid
     # be displayed.
     # 
     # *parameters*
-    # name:: The text to use for the link
-    # method:: The actual name of this column's field.
-    # path:: (Symbol) The name of the path method to call from routing.
-    # already_grid_options:: The options hash from the already grid view helper.
-    # options:: see link_to helper.
+    # +name+ The text to use for the link
+    # +method+ The actual name of this column's field.
+    # +path+ (Symbol) The name of the path method to call from routing.
+    # +already_grid_options+ The options hash from the already grid view helper.
+    # +options+ see link_to helper.
     #
     def sortable_header( name, method, path, scoping_args, already_grid_options, options={} )
       is_sorted_link = ( method.to_s == params[:order].to_s )
