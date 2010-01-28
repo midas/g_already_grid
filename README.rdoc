@@ -56,6 +56,11 @@ Add namespace option for namespacing:
   <%= g_already_grid @items, :id => "items-grid", :cols => [:name, :is_active], :sort => [:name], 
         :namespace => :admin %>
 
+Add use polymorphic path option for STI'ed models:
+
+  <%= g_already_grid @items, :id => "items-grid", :cols => [:name, :is_active], :sort => [:name], 
+        :namespace => :admin, :use_polymorphic_path => true %>
+
 
 == OPTIONS:
 
@@ -68,6 +73,7 @@ actions:: Action links to include in the action column of grid.  A boolean or Ar
 paginate:: A boolean indicating whether to output pagination controls.  Defaults to true.  Utilizes will_paginate plugin features.
 polymorphic_type:: The type of this polymorphic record.  Should be a string representing the class name.
 polymorphic_as:: The as used for the polymorphic type.  Can be a symbol or string.
+use_polymorphic_path:: When true, uses hte polymorphic path helper to determine the AR objects path from it's type (STI), otherwise, does not.  Defaults to false.
 namespace:: A string or symbol that is the namespace this collection is under.
 scoped_by:: The active record object that the objects in the ar_col is scoped by.
 shallow:: True if this collection is nested shallow, otherwise, false.
@@ -78,7 +84,7 @@ adaptable_url:: True in order to make the index url automagically adapt to :get 
 == REQUIREMENTS:
 
 * Rails >= 2.2.0
-* Guilded >= 0.1.4 (http://github.com/midas/guilded/tree/master)
+* Guilded >= 1.0.0 (http://github.com/midas/guilded/tree/master)
 * will_paginate
 
 

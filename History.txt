@@ -1,9 +1,16 @@
-1.0.5 2009-10-27
+== 1.0.7 2009-10-27
+
+* Added a use_polymorphic_path option to the grid view helper to enable the polymorphic path helper to determine the path of
+  each object in the collection to use as the link for each grid record.  Used when the AR object is STI'ed and one would like
+  to generate show links that are correctly pathed to the specific type (not the base class).
+
+
+== 1.0.5 2009-10-27
 
 * Added :clickable option to avoid creating link to show from table rows.
 
 
-1.0.4 2009-03-26
+== 1.0.4 2009-03-26
 
 * Refactored to utilize the REST path helper resolution available in Guilded 0.1.9
 * Added multi level scoped by option
