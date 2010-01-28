@@ -47,7 +47,12 @@
           <td>
 						<% cell_args = path_helpers[:show_rest_args] + record_array %>
 						<% if options[:actions].empty? && options[:clickable] == true %>
-							<%= link_to( record_val, @controller.send( path_helpers[:show_rest_helper], *cell_args ) ) %>
+                            <% if options[:use_polymorphic_path] == true
+                                cell_args.insert( 0, options[:namespace] ) -%>
+                                <%= link_to record_val, @controller.polymorphic_path( cell_args ) %>
+                            <% else -%>
+							  <%= link_to( record_val, @controller.send( path_helpers[:show_rest_helper], *cell_args ) ) %>
+                            <% end -%>
 						<% else %>
 							<%= link_to( record_val, "javascript:void(0)" ) %>
 						<% end %>

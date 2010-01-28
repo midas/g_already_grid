@@ -25,6 +25,8 @@ module GAlreadyGrid
     #   true.  Utilizes will_paginate plugin features.
     # polymorphic_type:: The type of this polymorphic record.  Should be a string representing the class name.
     # polymorphic_as:: The as used for the polymorphic type.  Can be a symbol or string.
+    # +use_polymorphic_path+ When true, uses hte polymorphic path helper to determine the AR objects path from it's type (STI),
+    #   otherwise, does not.  Defaults to false.
     # namespace:: A string or symbol that is the namespace this collection is under.
     # scoped_by:: The active record object that the objects in the ar_col is scoped by.
     # shallow:: True if this collection is nested shallow, otherwise, false.
