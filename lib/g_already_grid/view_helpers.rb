@@ -27,7 +27,6 @@ module GAlreadyGrid
     # +polymorphic_as+ The as used for the polymorphic type.  Can be a symbol or string.
     # +use_polymorphic_path+ When true, uses hte polymorphic path helper to determine the AR objects path from it's type (STI),
     #   otherwise, does not.  Defaults to false.
-    # +use_sti_base_index+ When true, resolves and uses the STI base class' index action.
     # +namespace+ A string or symbol that is the namespace this collection is under.
     # +scoped_by+ The active record object that the objects in the ar_col is scoped by.
     # +shallow+ True if this collection is nested shallow, otherwise, false.
