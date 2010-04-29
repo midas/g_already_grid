@@ -18,47 +18,66 @@ ActiveRecord collection.
 * Automatically renders a check all and adds check all behavior if check box column option
 
 
+== COMPATABILITY
+
+* Ruby 1.9
+* Ruby 1.8
+* Rails 3
+* Rails 2
+
+
 == INSTALL:
 
-  sudo gem install midas-g_already_grid
+  gem install g_already_grid
 
-In Rails environment.rb file:
 
-  config.gem 'midas-g_already_grid', :version => '1.0.2', :lib => 'g_already_grid', :source => 'http://gems.github.com'
+== INSTALL FOR RAILS
 
+Configure the Gem for use:
+
+  gem 'g_already_grid'          # Rails 3
+  config.gem 'g_already_grid'   # Rails 2
+
+Install the Gem:
+
+  bundle install         # Rails 3
+  rake gems:install      # Rails 2
+	
 Generate:
 
-  script/generate already_grid_assets_generator
+  rails generate already_grid_assets_generator     # Rails 3
+  script/generate already_grid_assets_generator    # Rails 2
 
 
 == USAGE:
 
 Simplest case:
 
-  <%= g_already_grid @items, :id => "items-grid", :cols => [:name, :is_active] %>
+	<%= raw g_already_grid( @items, :id => "items-grid", :cols => [:name, :is_active] ) %>   # Rails 3
+  <%= g_already_grid @items, :id => "items-grid", :cols => [:name, :is_active] %>   			 # Rails 2
 
 Add sorting (by name column only):
 
-  <%= g_already_grid @items, :id => "items-grid", :cols => [:name, :is_active], :sort => [:name] %>
+  <%= g_already_grid @items, :id => "items-grid", :cols => [:name, :is_active], :sort => [:name] %>   # Rails 2
 
 Add scoping for nested models (deeply nested):
 
-  <%= g_already_grid @items, :id => "items-grid", :cols => [:name, :is_active], :sort => [:name], 
+  <%= g_already_grid @items, :id => "items-grid", :cols => [:name, :is_active], :sort => [:name],     # Rails 2
         :scoped_by => @account %>
 	
 Add shallow option to use shallow nesting:
 
-  <%= g_already_grid @items, :id => "items-grid", :cols => [:name, :is_active], :sort => [:name], 
+  <%= g_already_grid @items, :id => "items-grid", :cols => [:name, :is_active], :sort => [:name],     # Rails 2
         :scoped_by => @account, :shallow => true %>
 
 Add namespace option for namespacing:
 
-  <%= g_already_grid @items, :id => "items-grid", :cols => [:name, :is_active], :sort => [:name], 
+  <%= g_already_grid @items, :id => "items-grid", :cols => [:name, :is_active], :sort => [:name],     # Rails 2
         :namespace => :admin %>
 
 Add use polymorphic path option for STI'ed models:
 
-  <%= g_already_grid @items, :id => "items-grid", :cols => [:name, :is_active], :sort => [:name], 
+  <%= g_already_grid @items, :id => "items-grid", :cols => [:name, :is_active], :sort => [:name],     # Rails 2
         :namespace => :admin, :use_polymorphic_path => true %>
 
 

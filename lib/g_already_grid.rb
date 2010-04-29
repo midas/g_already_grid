@@ -4,7 +4,7 @@ $:.unshift(File.dirname(__FILE__)) unless
 require 'g_already_grid/view_helpers'
 
 module GAlreadyGrid
-  VERSION = '1.0.7'
+  VERSION = '1.0.8'
 end
 
 if defined?( ActionView::Base )

@@ -1,3 +1,7 @@
+== 1.0.8 2010-04-28
+
+* Updated the generator to be Rails 3 compliant.
+
 == 1.0.7 2009-10-27
 
 * Added a use_polymorphic_path option to the grid view helper to enable the polymorphic path helper to determine the path of
