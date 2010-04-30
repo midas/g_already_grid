@@ -1,3 +1,4 @@
+<% @controller = self if Rails.version.split('.').first.to_i > 2 %>
 <div class="<%= options[:grid_class] %>" id="<%= options[:id] %>">
   <table cellspacing="0" cellpadding="0">
     <thead>
