@@ -51,7 +51,7 @@
 								cell_args.insert( 0, options[:namespace] ) -%>
 								<%= link_to record_val, controller.polymorphic_path( cell_args ) %>
 							<% else -%>
-							  <%= link_to( record_val, controller.send( path_helpers[:show_rest_helper], *cell_args ) ) %>
+								<%= link_to( record_val, path_proc.call( *cell_args ) ) %>
 							<% end -%>
 						<% else %>
 							<%= link_to( record_val, "javascript:void(0)" ) %>

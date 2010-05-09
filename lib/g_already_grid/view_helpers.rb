@@ -97,8 +97,14 @@ module GAlreadyGrid
       end
 
       options[:checkboxes] = true if options[:checkboxes].nil?
-
-      controller = self if Rails.version.split('.').first.to_i > 2 
+      
+      controller = self if Rails.version.split('.').first.to_i > 2
+      if options[:path_proc]
+        path_proc = options[:path_proc]
+      else
+        path_proc = Proc.new { |*args| controller.polymorphic_path( args )}
+      end
+      
       total_columns = options[:cols].size
       total_columns = total_columns + 1 if options[:checkboxes]
       total_columns = total_columns + 1 unless options[:actions].empty?
@@ -106,7 +112,7 @@ module GAlreadyGrid
 
       vars = {
         :options => options, :ar_col => ar_col, :do_paginate => do_paginate, :sort_by => sort_by, :path_helpers => path_helpers,
-        :controller => controller
+        :controller => controller, :path_proc => path_proc
       }
 
       @g_already_grid_options = options
