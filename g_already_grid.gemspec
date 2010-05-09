@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{g_already_grid}
-  s.version = "1.0.7"
+  s.version = "1.0.8"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["C. Jason Harrelson (midas)"]
-  s.date = %q{2010-01-28}
+  s.date = %q{2010-05-09}
   s.description = %q{A Guilded Rails component that generates a rich grid control from an ActiveRecord.}
   s.email = %q{jason@lookforwardenterprises.com}
   s.extra_rdoc_files = [
@@ -27,6 +27,16 @@ Gem::Specification.new do |s|
      "lib/g_already_grid.rb",
      "lib/g_already_grid/templates/guilded.already_grid.html.erb",
      "lib/g_already_grid/view_helpers.rb",
+     "lib/generators/already_grid_assets/already_grid_assets_generator.rb",
+     "lib/generators/already_grid_assets/templates/default.css",
+     "lib/generators/already_grid_assets/templates/gridHeadBg.gif",
+     "lib/generators/already_grid_assets/templates/gridSort.gif",
+     "lib/generators/already_grid_assets/templates/gridSortAsc.gif",
+     "lib/generators/already_grid_assets/templates/gridSortDesc.gif",
+     "lib/generators/already_grid_assets/templates/guilded.already_grid.js",
+     "lib/generators/already_grid_assets/templates/guilded.already_grid.min.js",
+     "lib/generators/already_grid_assets/templates/jquery-already_grid-0.1.js",
+     "lib/generators/already_grid_assets/templates/jquery-already_grid-0.1.min.js",
      "rails_generators/already_grid_assets/already_grid_assets_generator.rb",
      "rails_generators/already_grid_assets/templates/default.css",
      "rails_generators/already_grid_assets/templates/gridHeadBg.gif",
@@ -40,13 +50,20 @@ Gem::Specification.new do |s|
      "script/console",
      "script/destroy",
      "script/generate",
+     "spec/generators/already_grid_assets_generator_spec.rb",
+     "spec/spec.opts",
+     "spec/spec_helper.rb",
      "tasks/rspec.rake"
   ]
   s.homepage = %q{http://github.com/midas/g_already_grid}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{A Guilded Rails component that generates a rich grid control from an ActiveRecord.}
+  s.test_files = [
+    "spec/generators/already_grid_assets_generator_spec.rb",
+     "spec/spec_helper.rb"
+  ]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
