@@ -1,4 +1,3 @@
-<% @controller = self if Rails.version.split('.').first.to_i > 2 %>
 <div class="<%= options[:grid_class] %>" id="<%= options[:id] %>">
   <table cellspacing="0" cellpadding="0">
     <thead>
@@ -8,7 +7,7 @@
         <% end %>
         <% unless options[:actions].empty? %><th>Actions</th><% end %>
         <% options[:col_titles].each_with_index do |col, i| %>
-          <th><%= sort_by.include?( options[:cols][i].to_sym ) ? sortable_header( col, options[:cols][i], path_helpers[:index_rest_helper], path_helpers[:index_rest_args], options ) : col %></th>
+          <th><%= sort_by.include?( options[:cols][i].to_sym ) ? sortable_header( col, options[:cols][i], path_helpers[:index_rest_helper], path_helpers[:index_rest_args], controller, options ) : col %></th>
         <% end %>
         <th class="right"></th>
       </tr>
@@ -22,9 +21,9 @@
         <% end %>
         <% unless options[:actions].empty? %>
           <td>
-            <%= link_to 'show', @controller.send( path_helpers[:show_rest_helper], *(path_helpers[:show_rest_args] + record_array) ) if options[:actions].include?( :show ) %>
-            <%= link_to 'edit', @controller.send( path_helpers[:edit_rest_helper], *(path_helpers[:edit_rest_args] + record_array) ) if options[:actions].include?( :edit ) %>
-            <%= link_to( 'del', @controller.send( path_helpers[:delete_rest_helper], *(path_helpers[:edit_rest_args] + record_array) ), 
+            <%= link_to 'show', controller.send( path_helpers[:show_rest_helper], *(path_helpers[:show_rest_args] + record_array) ) if options[:actions].include?( :show ) %>
+            <%= link_to 'edit', controller.send( path_helpers[:edit_rest_helper], *(path_helpers[:edit_rest_args] + record_array) ) if options[:actions].include?( :edit ) %>
+            <%= link_to( 'del', controller.send( path_helpers[:delete_rest_helper], *(path_helpers[:edit_rest_args] + record_array) ), 
                   :method => :delete, :confirm => options[:del_confirmation] ) if options[:actions].include?( :edit ) %>
           </td>
         <% end %>
@@ -48,12 +47,12 @@
           <td>
 						<% cell_args = path_helpers[:show_rest_args] + record_array %>
 						<% if options[:actions].empty? && options[:clickable] == true %>
-                            <% if options[:use_polymorphic_path] == true
-                                cell_args.insert( 0, options[:namespace] ) -%>
-                                <%= link_to record_val, @controller.polymorphic_path( cell_args ) %>
-                            <% else -%>
-							  <%= link_to( record_val, @controller.send( path_helpers[:show_rest_helper], *cell_args ) ) %>
-                            <% end -%>
+							<% if options[:use_polymorphic_path] == true
+								cell_args.insert( 0, options[:namespace] ) -%>
+								<%= link_to record_val, controller.polymorphic_path( cell_args ) %>
+							<% else -%>
+							  <%= link_to( record_val, controller.send( path_helpers[:show_rest_helper], *cell_args ) ) %>
+							<% end -%>
 						<% else %>
 							<%= link_to( record_val, "javascript:void(0)" ) %>
 						<% end %>

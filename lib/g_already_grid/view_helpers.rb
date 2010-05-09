@@ -25,7 +25,7 @@ module GAlreadyGrid
     #   true.  Utilizes will_paginate plugin features.
     # +polymorphic_type+ The type of this polymorphic record.  Should be a string representing the class name.
     # +polymorphic_as+ The as used for the polymorphic type.  Can be a symbol or string.
-    # +use_polymorphic_path+ When true, uses hte polymorphic path helper to determine the AR objects path from it's type (STI),
+    # +use_polymorphic_path+ When true, uses the polymorphic path helper to determine the AR objects path from it's type (STI),
     #   otherwise, does not.  Defaults to false.
     # +use_sti_base_index+ When true, use the STI base class' index path instead of the specific descendant AR object's.
     # +namespace+ A string or symbol that is the namespace this collection is under.
@@ -98,13 +98,15 @@ module GAlreadyGrid
 
       options[:checkboxes] = true if options[:checkboxes].nil?
 
+      controller = self if Rails.version.split('.').first.to_i > 2 
       total_columns = options[:cols].size
       total_columns = total_columns + 1 if options[:checkboxes]
       total_columns = total_columns + 1 unless options[:actions].empty?
       options[:total_columns] = total_columns
 
       vars = {
-        :options => options, :ar_col => ar_col, :do_paginate => do_paginate, :sort_by => sort_by, :path_helpers => path_helpers
+        :options => options, :ar_col => ar_col, :do_paginate => do_paginate, :sort_by => sort_by, :path_helpers => path_helpers,
+        :controller => controller
       }
 
       @g_already_grid_options = options
@@ -126,7 +128,7 @@ module GAlreadyGrid
     # +already_grid_options+ The options hash from the already grid view helper.
     # +options+ see link_to helper.
     #
-    def sortable_header( name, method, path, scoping_args, already_grid_options, options={} )
+    def sortable_header( name, method, path, scoping_args, controller, already_grid_options, options={} )
       is_sorted_link = ( method.to_s == params[:order].to_s )
 
       if is_sorted_link
@@ -151,12 +153,12 @@ module GAlreadyGrid
       if is_sorted_link
         # Handle the currently sorted by link
         path_args << sort_options
-        path = @controller.send( path, *path_args )
+        path = controller.send( path, *path_args )
       else
         # Handle the the other currently unsorted by links (we will always sort in
         # an ASC direction the first time)
         path_args << unsorted_options
-        path = @controller.send( path, *path_args )
+        path = controller.send( path, *path_args )
       end
 
       # Try to adapt to get collection rest methods
