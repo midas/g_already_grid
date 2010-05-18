@@ -18,15 +18,10 @@ module GAlreadyGrid
     # +exclude_css+ A boolean indicating if Guilded should create a stylesheet inlcude tag for
     #   this element.  Defaults to false.
     # +empty_msg+ a message to display when the ar_col is empty or nil.  Defaults to 'No matching records'.
-    # +actions+ Action links to include in the action column of grid.  A boolean or Array of symbols.  When 
-    #   boolean, if true, add show, edit and delete actions.  When boolean, if false, hide actions column.
-    #   When Array of symbols, add only actions present in array.
     # +paginate+ A boolean indicating whether to output pagination controls.  Defaults to
     #   true.  Utilizes will_paginate plugin features.
     # +polymorphic_type+ The type of this polymorphic record.  Should be a string representing the class name.
     # +polymorphic_as+ The as used for the polymorphic type.  Can be a symbol or string.
-    # +use_polymorphic_path+ When true, uses the polymorphic path helper to determine the AR objects path from it's type (STI),
-    #   otherwise, does not.  Defaults to false.
     # +use_sti_base_index+ When true, use the STI base class' index path instead of the specific descendant AR object's.
     # +namespace+ A string or symbol that is the namespace this collection is under.
     # +scoped_by+ The active record object that the objects in the ar_col is scoped by.
@@ -76,12 +71,6 @@ module GAlreadyGrid
       end
       sort_by = Array.new unless sort_by
 
-      if options[:actions].is_a?( TrueClass )
-        options[:actions] = [ :show, :edit, :delete ]
-      elsif options[:actions].nil?
-        options[:actions] = []
-      end
-
       # Resolve pagination
       do_paginate = true
       begin
@@ -102,16 +91,17 @@ module GAlreadyGrid
       if options[:path_proc]
         path_proc = options[:path_proc]
       else
-        path_proc = Proc.new { |*args| controller.polymorphic_path( args )}
+        path_proc = Proc.new { |*args| controller.polymorphic_path( args ) }
       end
       
       total_columns = options[:cols].size
       total_columns = total_columns + 1 if options[:checkboxes]
-      total_columns = total_columns + 1 unless options[:actions].empty?
       options[:total_columns] = total_columns
+      options[:do_paginate] = do_paginate
+      options[:path_helpers] = path_helpers
 
       vars = {
-        :options => options, :ar_col => ar_col, :do_paginate => do_paginate, :sort_by => sort_by, :path_helpers => path_helpers,
+        :options => options, :ar_col => ar_col, :sort_by => sort_by, :path_helpers => path_helpers,
         :controller => controller, :path_proc => path_proc
       }
 
@@ -119,6 +109,15 @@ module GAlreadyGrid
       path = File.dirname(__FILE__)
       full_path = "#{path}/templates/guilded.already_grid.html.erb"
       self.render( :file => full_path, :use_full_path => false, :locals => vars )
+    end
+    
+    def g_already_grid_footer_contents( ar_col, options={} )
+      footer = "<tr><td colspan=\"#{options[:total_columns].to_s}\">"
+      if options[:do_paginate]
+        footer << "<p>#{will_paginate( ar_col )}</p><p>#{page_entries_info( ar_col )}</p>"
+      end
+      footer << "</td></tr>"
+      raw footer
     end
 
   private

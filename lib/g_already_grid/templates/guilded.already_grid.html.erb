@@ -5,7 +5,6 @@
         <% if options[:checkboxes] %>
           <th class="chkBox"><input type="checkbox" class="<%= options[:check_all_class] %>" /></th>
         <% end %>
-        <% unless options[:actions].empty? %><th>Actions</th><% end %>
         <% options[:col_titles].each_with_index do |col, i| %>
           <th><%= sort_by.include?( options[:cols][i].to_sym ) ? sortable_header( col, options[:cols][i], path_helpers[:index_rest_helper], path_helpers[:index_rest_args], controller, options ) : col %></th>
         <% end %>
@@ -18,14 +17,6 @@
         <tr class="<%= cycle( 'even', 'odd' ) %>">
         <% if options[:checkboxes] %>
           <td class="chkBox"><input type="checkbox" class="<%= options[:checkbox_class] %>" name="<%= record.class.to_s.tableize %>[<%= record.id %>]" /></td>
-        <% end %>
-        <% unless options[:actions].empty? %>
-          <td>
-            <%= link_to 'show', controller.send( path_helpers[:show_rest_helper], *(path_helpers[:show_rest_args] + record_array) ) if options[:actions].include?( :show ) %>
-            <%= link_to 'edit', controller.send( path_helpers[:edit_rest_helper], *(path_helpers[:edit_rest_args] + record_array) ) if options[:actions].include?( :edit ) %>
-            <%= link_to( 'del', controller.send( path_helpers[:delete_rest_helper], *(path_helpers[:edit_rest_args] + record_array) ), 
-                  :method => :delete, :confirm => options[:del_confirmation] ) if options[:actions].include?( :edit ) %>
-          </td>
         <% end %>
         <% options[:cols].each do |col|
             translate_method = "translate_#{col}".to_sym
@@ -46,13 +37,9 @@
             end %>
           <td>
 						<% cell_args = path_helpers[:show_rest_args] + record_array %>
-						<% if options[:actions].empty? && options[:clickable] == true %>
-							<% if options[:use_polymorphic_path] == true
-								cell_args.insert( 0, options[:namespace] ) -%>
-								<%= link_to record_val, controller.polymorphic_path( cell_args ) %>
-							<% else -%>
-								<%= link_to( record_val, path_proc.call( *cell_args ) ) %>
-							<% end -%>
+						<% if options[:clickable] == true %>
+							<% cell_args.insert( 0, options[:namespace] ) unless options[:namespace].blank? -%>
+							<%= link_to( record_val, path_proc.call( *cell_args ) ) %>
 						<% else %>
 							<%= link_to( record_val, "javascript:void(0)" ) %>
 						<% end %>
@@ -62,11 +49,7 @@
       <% end %>
     </tbody>
     <tfoot>
-      <tr>
-        <td colspan="<%= options[:total_columns].to_s %>">
-          <% if do_paginate %><p><%= will_paginate( ar_col ) %></p><p><%= page_entries_info( ar_col ) %></p><% end %>
-        </td>
-      </tr>
+      <%= g_already_grid_footer_contents( ar_col, options ) %>
     </tfoot>
   </table>
 </div>
