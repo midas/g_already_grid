@@ -141,7 +141,7 @@ module GAlreadyGrid
     # +already_grid_options+ The options hash from the already grid view helper.
     # +options+ see link_to helper.
     #
-    def sortable_header( name, method, path, scoping_args, controller, already_grid_options, options={} )
+    def g_already_grid_sortable_column_title( name, method, path, scoping_args, controller, already_grid_options, options={} )
       is_sorted_link = ( method.to_s == params[:order].to_s )
 
       if is_sorted_link
