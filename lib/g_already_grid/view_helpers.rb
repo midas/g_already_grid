@@ -36,7 +36,7 @@ module GAlreadyGrid
 
       Guilded::Guilder.instance.add( :already_grid, options, [ 'jquery/jquery-already_grid-0.1.min.js' ] )
 
-      return "<span class=\"list-empty-msg\">#{options[:empty_msg] || 'No matching records'}</span>" if ar_col.nil? || ar_col.empty?
+      return g_already_grid_empty_message( options ) if ar_col.nil? || ar_col.empty?
 
       options[:grid_class] ||= 'already-grid'
       options[:checkbox_class] ||= "chk"
@@ -110,6 +110,12 @@ module GAlreadyGrid
       full_path = "#{path}/templates/guilded.already_grid.html.erb"
       self.render( :file => full_path, :use_full_path => false, :locals => vars )
     end
+
+  private
+  
+    def g_already_grid_empty_message( options={} )
+      raw( "<span class=\"list-empty-msg\">#{options[:empty_msg] || 'No matching records'}</span>" )
+    end
     
     def g_already_grid_footer_contents( ar_col, options={} )
       footer = "<tr><td colspan=\"#{options[:total_columns].to_s}\">"
@@ -119,8 +125,10 @@ module GAlreadyGrid
       footer << "</td></tr>"
       raw footer
     end
-
-  private
+    
+    def g_already_grid_non_sortable_column_title( title )
+      raw( "<span>#{title}</span>" )
+    end
 
     # Creates a link to sort this column of a table.  Utilizes the link_to helper,
     # but resolves sort by, direction and adds correct CSS classes for UI elements to

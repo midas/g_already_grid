@@ -6,7 +6,7 @@
           <th class="chkBox"><input type="checkbox" class="<%= options[:check_all_class] %>" /></th>
         <% end %>
         <% options[:col_titles].each_with_index do |col, i| %>
-          <th><%= sort_by.include?( options[:cols][i].to_sym ) ? sortable_header( col, options[:cols][i], path_helpers[:index_rest_helper], path_helpers[:index_rest_args], controller, options ) : col %></th>
+          <th><%= sort_by.include?( options[:cols][i].to_sym ) ? sortable_header( col, options[:cols][i], path_helpers[:index_rest_helper], path_helpers[:index_rest_args], controller, options ) : g_already_grid_non_sortable_column_title( col ) %></th>
         <% end %>
         <th class="right"></th>
       </tr>
