@@ -53,7 +53,7 @@ Generate:
 
 Simplest case:
 
-	<%= raw g_already_grid( @items, :id => "items-grid", :cols => [:name, :is_active] ) %>   # Rails 3
+  <%= raw g_already_grid( @items, :id => "items-grid", :cols => [:name, :is_active] ) %>   # Rails 3
   <%= g_already_grid @items, :id => "items-grid", :cols => [:name, :is_active] %>   			 # Rails 2
 
 Add sorting (by name column only):
@@ -100,6 +100,15 @@ shallow:: True if this collection is nested shallow, otherwise, false.
 clickable:: Set to false in order to avoid rows linking to show action.  Defaults to true.
 adaptable_url:: True in order to make the index url automagically adapt to :get collection routes, otherwise false.
 
+
+== Overriding HTML generation
+
+You can override the following methods in your application_helper.rb file:
+
+* g_already_grid_empty_message( options={} )
+* g_already_grid_non_sortable_column_title( title )
+* g_already_grid_sortable_column_title( name, method, path, scoping_args, controller, already_grid_options, options={} )
+* g_already_grid_footer_contents( ar_col, options={} )
 
 == REQUIREMENTS:
 
