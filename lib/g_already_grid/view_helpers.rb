@@ -56,7 +56,7 @@ module GAlreadyGrid
           path_helpers[:index_rest_helper] = path_helpers[:index_rest_helper].gsub( /#{specific_name}/, base_name ) unless base_name.nil?
         end
       end
-      
+
       scoped_by = options.delete( :scoped_by )
 
       # Resolve sorting
@@ -86,14 +86,13 @@ module GAlreadyGrid
       end
 
       options[:checkboxes] = true if options[:checkboxes].nil?
-      
-      controller = self if Rails.version.split('.').first.to_i > 2
+
       if options[:path_proc]
         path_proc = options[:path_proc]
       else
         path_proc = Proc.new { |*args| controller.polymorphic_path( args ) }
       end
-      
+
       total_columns = options[:cols].size
       total_columns = total_columns + 1 if options[:checkboxes]
       options[:total_columns] = total_columns
@@ -112,11 +111,11 @@ module GAlreadyGrid
     end
 
   private
-  
+
     def g_already_grid_empty_message( options={} )
       raw( "<span class=\"list-empty-msg\">#{options[:empty_msg] || 'No matching records'}</span>" )
     end
-    
+
     def g_already_grid_footer_contents( ar_col, options={} )
       footer = "<tr><td colspan=\"#{options[:total_columns].to_s}\">"
       if options[:do_paginate]
@@ -125,7 +124,7 @@ module GAlreadyGrid
       footer << "</td></tr>"
       raw footer
     end
-    
+
     def g_already_grid_non_sortable_column_title( title )
       raw( "<span>#{title}</span>" )
     end
