@@ -1,3 +1,13 @@
+== 1.1.0 2011-08-04
+
+* Stop trying to be backwards compatible with < Rails 2.3.10.
+
+
+== 1.0.10 2010-06-13
+
+* Move several grid view generation methods to helpers so they can be overridden.
+
+
 == 1.0.9 2010-05-17
 
 * Removed the :actions option as it is rarely used and noisy to the code base.
@@ -35,7 +45,7 @@
 * Fixed issue with sorting links not obeying polymorphism
 
 
-== 1.0.1 
+== 1.0.1
 
 * Fixed issue with scoping and shallow default setup
 
